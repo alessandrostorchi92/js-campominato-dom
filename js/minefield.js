@@ -13,36 +13,68 @@ const btnPlay = document.querySelector("#btn_play");
 
 /**
  * @type {HTMLElement}
- */
+*/
 const gridContainer = document.querySelector(".grid-container");
+
+// Variabile contente la lista delle caselle contenenti le bombe
+const arrayBombs = []; 
+
+// Variabile contente tutte le 100 caselle
+const grid = [];
+
+// Variabile singola cella
+
+
+
 
 btnPlay.addEventListener("click", onBtnClick);
 
-const totalSquares = 100;
+
 function onBtnClick() {
 
+    // Codice da eseguire al click del btn Play
 
     // Genero la griglia in modo virtuale sottoforma di array, ma non viene aggiunta al Dom automaticamente. Successivamente devo aggiungerla al file html
-    const gridList = createGrid(totalSquares);
+    const gridList = createGrid(100);
     console.log(gridList);
 
     // Invoco la funzione che aggiunge al Dom i vari quadrati.
-    printGrid(gridContainer, gridList) 
+    printGrid(gridContainer, gridList)
 }
 
 /**
- * Questa funzione genera un singolo quadrato virtuale della griglia
+ * Questa funzione genera un singolo quadrato virtuale della griglia e lo ritorna
  * @param {string} squareContent Contenuto testuale da inserire all'interno del quadrato creato
  * @param {number} totalSquares  Numero totale di quadrati da creare
  * @returns {HTMLDivElement}
  */
 
-function createSingleSquare(squareContent, totalSquares) {
+function createSingleSquare(squareContent) {
     const square = document.createElement("div");
     square.classList.add("grid-square");
     square.textContent = squareContent;
 
+    // onSquareClick deve essere scritta senza parentesi tonde, perchè sara addEventListener che invocherà la funzione quando l'utente clicca
+    // In questo modo sto indicando quale funzione dovrà essere invocata al click 
+    square.addEventListener("click", onSquareClick);
+
     return square;
+}
+
+
+function onSquareClick() {
+
+    // Codice da eseguire al click delle celle
+
+    const boom = arrayBombs.includes(grid);
+    
+    if (boom === false) {
+        this.classList.toggle("bg-danger");
+        alert("Hai perso!!!");
+    } else {
+        this.classList.toggle("bg-primary");   
+    }
+
 }
 
 /**
@@ -50,16 +82,12 @@ function createSingleSquare(squareContent, totalSquares) {
  * @param {num} squaresNumber Numero di quadrati da creare all'interno della griglia
  * @return {HTMLDivElement[]} 
  */
+
 function createGrid(squaresNumber) {
-    const grid = [];
     for (let i = 1; i <= squaresNumber; i++) {
         // Salvo in una variabile l'output della funzione createSingleSquare altrimenti andrei a perdere quell'output 
         const newSquare = createSingleSquare(i);
         grid.push(newSquare);
-        newSquare.addEventListener("click", function() {
-            newSquare.classList.toggle("bg-primary");
-            console.log(`Hai colorato la cella numero ${i}`);
-        })
     }
 
     return grid;
@@ -74,13 +102,13 @@ function createGrid(squaresNumber) {
  */
 
 function printGrid(container, squaresList) {
-    for(let i = 0; i < squaresList.length; i++){
+    for (let i = 0; i < squaresList.length; i++) {
         container.append(squaresList[i]);
     }
 }
 
 // Invoco la funzione per generare le caselle, nelle quali saranno posizionate le bombe
-    createBombs ()
+createBombs()
 
 /**
  * Dichiarazione funzione per generare le bombe con un array di 16 numeri casuali non ripetuti compresi tra 1 e 100
@@ -88,21 +116,23 @@ function printGrid(container, squaresList) {
  * @return {num[]} arrayBombs è l'array contenente il numero delle celle in cui verrano inserite le bombe
  */
 
-function createBombs () {
-    const arrayBombs = [];
+function createBombs() {
     for (let i = 0; i < 16; i++) {
-        const bombsBoxes =  Math.floor(Math.random() * 100) + 1;
+        const bombsBoxes = Math.floor(Math.random() * 100) + 1;
         if (!arrayBombs.includes(bombsBoxes))
             arrayBombs.push(bombsBoxes);
-            // Altrimenti potrei usare anche questo metodo per impedire la ripetizione dei numeri delle celle
-            // if (arrayBombs.indexOf(bombsBoxes) === -1){
-            //     arrayBombs.push(bombsBoxes);
-            // } else {
-            //     i--
-        }
-        // Verifico attraverso la funzione console.log se la funzione è corretta
-        console.log(`Le caselle delle bombe sono: ${arrayBombs}`);
-
-        return arrayBombs;
+        // Altrimenti potrei usare anche questo metodo per impedire la ripetizione dei numeri delle celle
+        // if (arrayBombs.indexOf(bombsBoxes) === -1){
+        //     arrayBombs.push(bombsBoxes);
+        // } else {
+        //     i--
     }
+    // Verifico attraverso la funzione console.log se la funzione è corretta
+    console.log(`Le caselle delle bombe sono: ${arrayBombs}`);
+
+
+    return arrayBombs;
+}
+
+
 
