@@ -1,15 +1,10 @@
-// Consegna:
-// L’utente clicca su un bottone che genererà una griglia di gioco quadrata composta da 100 celle (ci saranno quindi 10 caselle per ognuna delle 10 righe). Quando l’utente clicca su ogni cella, la cella cliccata si colora di azzurro ed emetto un messaggio in console con il numero della cella cliccata.
-
+// Consegna: Il computer deve generare 16 numeri casuali: le bombe. Attenzione: nella stessa cella può essere posizionata al massimo una bomba, perciò nell’array delle bombe non potranno esserci due numeri uguali.
+// In seguito l’utente clicca su una cella: se il numero è presente nella lista dei numeri generati - abbiamo calpestato una bomba - la cella si colora di rosso e la partita termina. Altrimenti la cella cliccata si colora di azzurro e l’utente può continuare a cliccare sulle altre celle.
+// La partita termina quando il giocatore clicca su una bomba o quando raggiunge il numero massimo possibile di numeri consentiti (ovvero quando ha rivelato tutte le celle che non sono bombe).
+// Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba.
 
 // Procedimento: 
-// 1) Scrivo prima cosa voglio fare passo passo in italiano, dividendo il lavoro in micro problemi
-// 2) Per accettarmi di capire se sto facendo le cose bene ad ogni step utilizzo il "console.log"
-// 3) Creo un btn, a cui associo la funzione addEventListener, su cui l'utente cliccherà per generare
-// una griglia di gioco quadrata composta da 100 celle
-// 4) Genero virtualmente il primo quadrato della mia griglia di gioco
-// 5) Attraverso un ciclo for genero tutti i quadrati della griglia del campo minato 
-// 6) Creo un addEventListener su ogni singolo square della griglia al fine di poterli colorare di azzurro al click 
+// 1) Generare mediante la funzione Math Random() 16 numeri casuali non ripetuti, che saranno le caselle in cui verranno posizionate le bombe
 
 
 "use strict"
@@ -23,9 +18,9 @@ const gridContainer = document.querySelector(".grid-container");
 
 btnPlay.addEventListener("click", onBtnClick);
 
+const totalSquares = 100;
 function onBtnClick() {
 
-    const totalSquares = 100;
 
     // Genero la griglia in modo virtuale sottoforma di array, ma non viene aggiunta al Dom automaticamente. Successivamente devo aggiungerla al file html
     const gridList = createGrid(totalSquares);
@@ -83,6 +78,9 @@ function printGrid(container, squaresList) {
         container.append(squaresList[i]);
     }
 }
+
+// Invoco la funzione per generare le caselle, nelle quali saranno posizionate le bombe
+    createBombs ()
 
 /**
  * Dichiarazione funzione per generare le bombe con un array di 16 numeri casuali non ripetuti compresi tra 1 e 100
