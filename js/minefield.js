@@ -108,8 +108,3 @@ function createBombs () {
         return arrayBombs;
     }
 
-
-    
-
-
-
