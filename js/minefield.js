@@ -85,7 +85,9 @@ function onSquareClick() {
 
     // Codice da eseguire al click delle celle
 
-    const boom = arrayBombs.includes(newSquare);
+    const cellValue = parseInt(this.innerHTML);
+
+    const boom = arrayBombs.includes(cellValue);
 
     if (boom === false) {
         this.classList.toggle("bg-danger");
