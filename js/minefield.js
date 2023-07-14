@@ -69,30 +69,30 @@ function createGrid(squaresNumber) {
     for (let i = 1; i <= squaresNumber; i++) {
         // Salvo in una variabile l'output della funzione createSingleSquare altrimenti andrei a perdere quell'output 
         const newSquare = createSingleSquare(i);
+        newSquare.addEventListener("click", onSquareClick);
         grid.push(newSquare);
     }
 
     // onSquareClick deve essere scritta senza parentesi tonde, perchè sara addEventListener che invocherà la funzione quando l'utente clicca
     // In questo modo sto indicando quale funzione dovrà essere invocata al click 
 
-    newSquare.addEventListener("click", onSquareClick);
-
-    function onSquareClick() {
-
-        // Codice da eseguire al click delle celle
-    
-        const boom = arrayBombs.includes(newSquare);
-    
-        if (boom === false) {
-            this.classList.toggle("bg-danger");
-            alert("HAI PERSO");
-        } else {
-            this.classList.toggle("bg-primary");
-        }
-    
-    }
 
     return grid;
+
+}
+
+function onSquareClick() {
+
+    // Codice da eseguire al click delle celle
+
+    const boom = arrayBombs.includes(newSquare);
+
+    if (boom === false) {
+        this.classList.toggle("bg-danger");
+        alert("HAI PERSO");
+    } else {
+        this.classList.toggle("bg-primary");
+    }
 
 }
 
