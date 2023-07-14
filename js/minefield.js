@@ -92,9 +92,8 @@ function onSquareClick() {
 
     if (boom === true) {
         this.classList.toggle("bg-danger");
+        console.log("Hai perso! Hai calpestato una bomba.");
         alert("Hai perso! Hai calpestato una bomba.");
-        return;
-
     } else {
         this.classList.toggle("bg-primary");
     }
@@ -109,6 +108,9 @@ function onSquareClick() {
  */
 
 function printGrid(container, squaresList) {
+    // Reset del contenuto del container per evitare la creazione di ulteriori div dopo il click sul bottone play
+    container.innerHTML = "";
+
     for (let i = 0; i < squaresList.length; i++) {
         container.append(squaresList[i]);
     }
