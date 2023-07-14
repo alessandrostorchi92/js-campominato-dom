@@ -4,16 +4,16 @@
 // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba.
 
 // Procedimento: 
-// 1) Generare mediante la funzione Math Random() 16 numeri casuali non ripetuti, che saranno le caselle in cui verranno posizionate le bombe
+// 1) Genero mediante la funzione Math Random() 16 numeri casuali non ripetuti, che saranno le caselle in cui verranno posizionate le bombe
+// 2) Assegno le bombe alle caselle appartenenti
+// 3) Impostare la possibilità di cliccare suciascuna casella
+// 4) Con una condizione booleana fare in modo che, se l'utente clicca su una casella dove si trova una bomba, la casella diventi rossa,s altrimenti azzurra
 
 
 "use strict"
 
 const btnPlay = document.querySelector("#btn_play");
 
-/**
- * @type {HTMLElement}
-*/
 const gridContainer = document.querySelector(".grid-container");
 
 // Variabile contente la lista delle caselle contenenti le bombe
@@ -24,8 +24,9 @@ const grid = [];
 
 // Variabile singola cella
 
-
-
+/**
+ * @type {HTMLButtonElement}
+ */
 
 btnPlay.addEventListener("click", onBtnClick);
 
@@ -38,6 +39,10 @@ function onBtnClick() {
     const gridList = createGrid(100);
     console.log(gridList);
 
+    /**
+     * @type {HTMLElement}
+     */
+
     // Invoco la funzione che aggiunge al Dom i vari quadrati.
     printGrid(gridContainer, gridList)
 }
@@ -45,7 +50,6 @@ function onBtnClick() {
 /**
  * Questa funzione genera un singolo quadrato virtuale della griglia e lo ritorna
  * @param {string} squareContent Contenuto testuale da inserire all'interno del quadrato creato
- * @param {number} totalSquares  Numero totale di quadrati da creare
  * @returns {HTMLDivElement}
  */
 
@@ -53,10 +57,6 @@ function createSingleSquare(squareContent) {
     const square = document.createElement("div");
     square.classList.add("grid-square");
     square.textContent = squareContent;
-
-    // onSquareClick deve essere scritta senza parentesi tonde, perchè sara addEventListener che invocherà la funzione quando l'utente clicca
-    // In questo modo sto indicando quale funzione dovrà essere invocata al click 
-    square.addEventListener("click", onSquareClick);
 
     return square;
 }
@@ -70,7 +70,7 @@ function onSquareClick() {
     
     if (boom === false) {
         this.classList.toggle("bg-danger");
-        alert("Hai perso!!!");
+        alert("HAI PERSO");
     } else {
         this.classList.toggle("bg-primary");   
     }
@@ -79,7 +79,7 @@ function onSquareClick() {
 
 /**
  * Dato il numero di celle da cui sarà composta la griglia (100 celle), facendolo passare come argomento della funzione, creo tutta la griglia
- * @param {num} squaresNumber Numero di quadrati da creare all'interno della griglia
+ * @param {number} squaresNumber Numero di quadrati da creare all'interno della griglia
  * @return {HTMLDivElement[]} 
  */
 
@@ -89,6 +89,10 @@ function createGrid(squaresNumber) {
         const newSquare = createSingleSquare(i);
         grid.push(newSquare);
     }
+
+    // onSquareClick deve essere scritta senza parentesi tonde, perchè sara addEventListener che invocherà la funzione quando l'utente clicca
+    // In questo modo sto indicando quale funzione dovrà essere invocata al click 
+    square.addEventListener("click", onSquareClick);
 
     return grid;
 
@@ -112,8 +116,7 @@ createBombs()
 
 /**
  * Dichiarazione funzione per generare le bombe con un array di 16 numeri casuali non ripetuti compresi tra 1 e 100
- * @param {num} bombsNumber è il numero delle bombe presenti nella griglia
- * @return {num[]} arrayBombs è l'array contenente il numero delle celle in cui verrano inserite le bombe
+ * @return {number[]} arrayBombs è l'array contenente il numero delle celle in cui verrano inserite le bombe
  */
 
 function createBombs() {
