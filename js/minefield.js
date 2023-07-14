@@ -17,12 +17,10 @@ const btnPlay = document.querySelector("#btn_play");
 const gridContainer = document.querySelector(".grid-container");
 
 // Variabile contente la lista delle caselle contenenti le bombe
-const arrayBombs = []; 
+const arrayBombs = [];
 
 // Variabile contente tutte le 100 caselle
 const grid = [];
-
-// Variabile singola cella
 
 /**
  * @type {HTMLButtonElement}
@@ -61,22 +59,6 @@ function createSingleSquare(squareContent) {
     return square;
 }
 
-
-function onSquareClick() {
-
-    // Codice da eseguire al click delle celle
-
-    const boom = arrayBombs.includes(grid);
-    
-    if (boom === false) {
-        this.classList.toggle("bg-danger");
-        alert("HAI PERSO");
-    } else {
-        this.classList.toggle("bg-primary");   
-    }
-
-}
-
 /**
  * Dato il numero di celle da cui sarà composta la griglia (100 celle), facendolo passare come argomento della funzione, creo tutta la griglia
  * @param {number} squaresNumber Numero di quadrati da creare all'interno della griglia
@@ -92,11 +74,28 @@ function createGrid(squaresNumber) {
 
     // onSquareClick deve essere scritta senza parentesi tonde, perchè sara addEventListener che invocherà la funzione quando l'utente clicca
     // In questo modo sto indicando quale funzione dovrà essere invocata al click 
-    square.addEventListener("click", onSquareClick);
+
+    newSquare.addEventListener("click", onSquareClick);
+
+    function onSquareClick() {
+
+        // Codice da eseguire al click delle celle
+    
+        const boom = arrayBombs.includes(newSquare);
+    
+        if (boom === false) {
+            this.classList.toggle("bg-danger");
+            alert("HAI PERSO");
+        } else {
+            this.classList.toggle("bg-primary");
+        }
+    
+    }
 
     return grid;
 
 }
+
 
 /**
  * Attraverso un'altra funzione stampo la griglia in html, aggiungendo ad un elemento html la lista dei quadrati
