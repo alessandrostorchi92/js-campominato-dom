@@ -5,9 +5,10 @@
 
 // Procedimento: 
 // 1) Genero mediante la funzione Math Random() 16 numeri casuali non ripetuti, che saranno le caselle in cui verranno posizionate le bombe
-// 2) Assegno le bombe alle caselle appartenenti
+// 2) Assegno le bombe alle caselle appartenenti.Visto che l’array di bombe è un array di numeri
+// ho bisogno di associarla ad un numero parseInt() e non a un HTMLElement
 // 3) Impostare la possibilità di cliccare suciascuna casella
-// 4) Con una condizione booleana fare in modo che, se l'utente clicca su una casella dove si trova una bomba, la casella diventi rossa,s altrimenti azzurra
+// 4) Con una condizione booleana faccio in modo che, se l'utente clicca su una casella dove si trova una bomba, la casella diventi rossa, altrimenti azzurra
 
 
 "use strict"
@@ -89,15 +90,16 @@ function onSquareClick() {
 
     const boom = arrayBombs.includes(cellValue);
 
-    if (boom === false) {
+    if (boom === true) {
         this.classList.toggle("bg-danger");
-        alert("HAI PERSO");
+        alert("Hai perso! Hai calpestato una bomba.");
+        return;
+
     } else {
         this.classList.toggle("bg-primary");
     }
 
 }
-
 
 /**
  * Attraverso un'altra funzione stampo la griglia in html, aggiungendo ad un elemento html la lista dei quadrati
